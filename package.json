@@ -1,0 +1,68 @@
+{
+  "name": "vite-react-typescript-cross-browser-hmr-extension-template",
+  "version": "1.0.0",
+  "displayName": "Vite React Typescript Cross Browser HMR Extension Template",
+  "description": "A @geetesh-gupta/vite-react-typescript-cross-browser-hmr-extension-template web extension template",
+  "author": "Geetesh Gupta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geetesh-gupta/vite-react-typescript-cross-browser-hmr-extension-template/issues"
+  },
+  "homepage": "https://github.com/geetesh-gupta/vite-react-typescript-cross-browser-hmr-extension-template#readme",
+  "keywords": [
+    "vite",
+    "react",
+    "typescript",
+    "cross",
+    "browser",
+    "hmr",
+    "extension",
+    "chrome",
+    "firefox",
+    "edge",
+    "manifest",
+    "manifest V2",
+    "manifest V3"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "build:v2": "cross-env MANIFEST_VERSION=2 run-s build",
+    "build:all": "run-p build build:v2",
+    "clear": "rimraf dist/*",
+    "clear:v2": "rimraf dist/v2/",
+    "clear:v3": "rimraf dist/v3/",
+    "watch": "vite build --watch --mode development --minify false",
+    "watch:v2": "cross-env MANIFEST_VERSION=2 run-s watch",
+    "watch:all": "run-p watch watch:v2",
+    "dev": "vite",
+    "dev:v2": "cross-env MANIFEST_VERSION=2 run-s dev",
+    "dev:all": "run-p dev dev:v2",
+    "serve:firefox": "web-ext run --start-url \"about:debugging#/runtime/this-firefox\"  --source-dir ./dist/v2",
+    "serve:chrome": "web-ext run -t chromium --start-url \"http://google.com/\" --source-dir ./dist/v3",
+    "serve:all": "run-p serve:firefox serve:chrome",
+    "pack:crx": "cross-env-shell crx pack dist/v3 -o $npm_package_name-$npm_package_version.crx",
+    "pack:xpi": "cross-env WEB_EXT_ARTIFACTS_DIR=./ cross-env-shell web-ext build --source-dir ./dist/v2 --filename $npm_package_name-$npm_package_version.xpi --overwrite-dest",
+    "pack:all": "run-p pack:crx pack:xpi"
+  },
+  "devDependencies": {
+    "@samrum/vite-plugin-web-extension": "^3.1.0",
+    "@types/chrome": "^0.0.212",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.10",
+    "@types/webextension-polyfill": "^0.10.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "cross-env": "^7.0.3",
+    "crx": "^5.0.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^4.1.2",
+    "typescript": "^4.9.5",
+    "vite": "~4.1.1",
+    "web-ext": "^7.5.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "webextension-polyfill": "^0.10.0"
+  }
+}
